@@ -4,8 +4,8 @@ API REST de gerenciamento de livros desenvolvida com Spring Boot, PostgreSQL (Ne
 
 ![Versão](https://img.shields.io/badge/vers%C3%A3o-0.0.1--SNAPSHOT-blue)
 ![Java](https://img.shields.io/badge/Java-27-orange?logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F?logo=springboot)
-![Spring AI](https://img.shields.io/badge/Spring%20AI-2.0-6DB33F?logo=spring)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.1-6DB33F?logo=springboot)
+![Spring AI](https://img.shields.io/badge/Spring%20AI-2.0.1-6DB33F?logo=spring)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql)
 ![Gemini](https://img.shields.io/badge/Gemini-3.5%20Flash%20Lite-8E75B2?logo=googlegemini)
 ![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
@@ -28,12 +28,13 @@ API REST de gerenciamento de livros desenvolvida com Spring Boot, PostgreSQL (Ne
 ### Detalhes técnicos
 
 - **Java 27**
-- **Spring Boot 4.1** (Web MVC, Validation, Data JPA)
+- **Spring Boot 4.1.1** (starters `webmvc`, `validation` e `data-jpa`)
 - **Spring Data JPA / Hibernate** – schema gerado automaticamente (`ddl-auto: update`)
-- **Spring AI 2.0** fazendo a integração com o Gemini (`gemini-3.5-flash-lite`)
+- **Spring AI 2.0.1** com o starter Google GenAI (`spring-ai-starter-model-google-genai`), usando o modelo `gemini-3.5-flash-lite`
 - **Bean Validation** (Jakarta Validation) para validar a entrada
-- **Versionamento de API** nativo do Spring (header `X-API-VERSION`)
+- **Versionamento de API** nativo do Spring (header `X-API-VERSION`, configurado em `WebConfig`)
 - **Maven** (com Maven Wrapper)
+- Configuração sensível via arquivo `.env` (modelo em `.env.example`)
 
 ---
 
@@ -50,7 +51,7 @@ O projeto segue uma arquitetura em camadas: **controller → service → reposit
 | Repository | `repositories` | Acesso a dados com Spring Data JPA |
 | Model | `models` | Entidade JPA `BookModel` (tabela `tb_books`) |
 | DTO | `dtos` | Record de entrada `BookRecordDto`, com validações |
-| Config | `configs` | Configuração do versionamento de API |
+| Config | `configs` | Configuração do versionamento de API (`WebConfig`) |
 
 **Decisões do projeto:**
 - Identificadores do tipo **UUID**.
@@ -108,7 +109,7 @@ A API fica disponível em `http://localhost:8080`. A tabela `tb_books` é criada
 
 Base URL: `http://localhost:8080`
 
-A versão da API é informada pelo header `X-API-VERSION`. Se o header não for enviado, a versão padrão é `v1`.
+A versão da API é informada pelo header `X-API-VERSION`. Se o header não for enviado, a versão padrão é `v1`. A versão `v2` já é aceita na configuração, mas todos os endpoints atuais estão em `v1`.
 
 | Método | Endpoint | Descrição | Sucesso |
 |---|---|---|---|
